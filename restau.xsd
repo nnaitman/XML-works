@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="carte">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="plat"/>
+        <xs:element maxOccurs="unbounded" ref="menu"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="plat">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="nom"/>
+        <xs:element minOccurs="0" ref="remarque"/>
+        <xs:element ref="recette"/>
+      </xs:sequence>
+      <xs:attribute name="prix" use="required" type="xs:decimal"/>
+      <xs:attribute name="ref" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="nom" type="xs:string"/>
+  <xs:element name="remarque" type="xs:string"/>
+  <xs:element name="recette">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="action"/>
+        <xs:element ref="ingredient"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="action" type="xs:string"/>
+  <xs:element name="ingredient" type="xs:string"/>
+  <xs:element name="menu">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="prix"/>
+        <xs:element maxOccurs="unbounded" ref="composant"/>
+      </xs:sequence>
+      <xs:attribute name="nom" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="prix" type="xs:decimal"/>
+  <xs:element name="composant">
+    <xs:complexType>
+      <xs:attribute name="plat" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

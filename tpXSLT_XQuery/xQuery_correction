@@ -1,0 +1,23 @@
+for $f in doc("Films.xml")//FILM
+where $f/ROLES/ROLE/PRENOM = "Bruce" and $f/ROLES/ROLE/NOM = "Willis"
+return 
+<film annee="{$f/@annee}">
+    <titre>{$f/TITRE/text()}</titre>
+    <personnage>{$f/ROLES/ROLE/INTITULE/text()}</personnage>
+</film>
+
+---
+
+for $f in doc("Films.xml")//FILM
+return <film acteurs="{count($f/ROLES/ROLE)}"> {$f/TITRE} </film>
+
+---
+
+let $f := doc("Films.xml")//FILM
+for $g in distinct-values(doc("Films.xml")//FILM/GENRE)
+
+return 
+<films>
+    <genre>{$g}</genre>
+    <titre>{$f[GENRE/text()=$g]/TITRE}</titre>
+</films>
